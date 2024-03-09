@@ -11,14 +11,12 @@
              ItemSelected="deviceList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <StackLayout >
-                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" Padding="10, 5, 10, 5"/>
-                                    <Label Text="{Binding Description}"  Padding="10, 5, 0, 0" />
-                                </StackLayout>
-                            </ViewCell.View>
-                        </ViewCell>
+                        <TextCell
+                            Text="{Binding Name}"
+                            Detail="{Binding Description}"
+                            TextColor="Black"
+                            DetailColor="Gray"
+                            />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
