@@ -27,6 +27,12 @@
     <Compile Update="Pages\ClimatePage.xaml.cs">
       <DependentUpon>ClimatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\DevicePage_Scroll.xaml.cs">
+      <DependentUpon>DevicePage_Scroll.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\DevicePage.xaml.cs">
+      <DependentUpon>DevicePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,7 +51,7 @@
     <EmbeddedResource Update="Pages\DeviceListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\DevicePage.xaml">
+    <EmbeddedResource Update="Pages\DevicePage_Scroll.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\LoginPage.xaml">
@@ -57,7 +63,7 @@
     <EmbeddedResource Update="Pages\MergeGridPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\NewDevicePage.xaml">
+    <EmbeddedResource Update="Pages\DevicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\PaddingPage.xaml">
