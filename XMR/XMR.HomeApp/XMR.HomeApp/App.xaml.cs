@@ -11,7 +11,7 @@ namespace XMR.HomeApp
         {
             InitializeComponent();
 
-            MainPage = new NewDevicePage();                        
+            MainPage = new BindingModePage();                        
         }
 
         protected override void OnStart()
