@@ -14,17 +14,27 @@ namespace XMR.HomeApp.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DeviceListPage : ContentPage
 	{
-        public ObservableCollection<HomeDevice> Devices { get; set; } = new ObservableCollection<HomeDevice>();
+        /// <summary>
+        /// Группируемая коллекция
+        /// </summary>
+        public ObservableCollection<Group<string, HomeDevice>> DeviceGroups { get; set; } 
+            = new ObservableCollection<Group<string, HomeDevice>>();
         public DeviceListPage ()
 		{
 			InitializeComponent ();
 
-            // Заполняем список устройств
-            Devices.Add(new HomeDevice("Чайник", description: "LG, объем 2л.", image: "Chainik.png"));
-            Devices.Add(new HomeDevice("Стиральная машина", description: "BOSCH", image: "StiralnayaMashina.png"));
-            Devices.Add(new HomeDevice("Посудомоечная машина", description: "Gorenje", image: "PosudomoechnayaMashina.png"));
-            Devices.Add(new HomeDevice("Мультиварка", description: "Philips", image: "Multivarka.png"));
+            // Первоначальные данные сохраним в обычном листе
+            var initialList = new List<HomeDevice>();
+            initialList.Add(new HomeDevice("Чайник", "Chainik.png", "LG, объем 2л.", "Кухня"));
+            initialList.Add(new HomeDevice("Стиральная машина", "StiralnayaMashina.png", description: "BOSCH", "Ванная"));
+            initialList.Add(new HomeDevice("Посудомоечная машина", "PosudomoechnayaMashina.png", "Gorenje", "Кухня"));
+            initialList.Add(new HomeDevice("Мультиварка", "Multivarka.png", "Philips", "Кухня"));
 
+            // Сгруппируем по комнатам
+            var devicesByRooms = initialList.GroupBy(d => d.Room).Select(g => new Group<string, HomeDevice>(g.Key, g));
+
+            // Сохраним
+            DeviceGroups = new ObservableCollection<Group<string, HomeDevice>>(devicesByRooms);
             BindingContext = this;
         }
         /// <summary>
