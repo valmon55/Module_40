@@ -5,7 +5,23 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="HomeApp - Ваши устройства" HorizontalOptions="Center" FontSize="Large"  Padding="30,10,30,10" StyleId="header" />
-            <ListView x:Name="deviceList" ItemsSource="{Binding Devices}" ItemTapped="deviceList_ItemTapped" ItemSelected="deviceList_ItemSelected"/>
+            <ListView x:Name="deviceList"
+             HasUnevenRows="True"
+             ItemsSource="{Binding Devices}"
+             ItemSelected="deviceList_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout >
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" Padding="10, 5, 10, 5"/>
+                                    <Label Text="{Binding Description}"  Padding="10, 5, 0, 0" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Button BackgroundColor ="AliceBlue"  x:Name="addButton" Text="Добавить" StyleClass="btn-add"></Button>
         </StackLayout>
     </ContentPage.Content>

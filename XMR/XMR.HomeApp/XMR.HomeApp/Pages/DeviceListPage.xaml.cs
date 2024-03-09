@@ -6,32 +6,23 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XMR.HomeApp.Models;
 
 namespace XMR.HomeApp.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DeviceListPage : ContentPage
 	{
-        public List<string> Devices { get; set; } = new List<string>();
+        public List<HomeDevice> Devices { get; set; } = new List<HomeDevice>();
         public DeviceListPage ()
 		{
 			InitializeComponent ();
 
-            Devices.Add("Чайник");
-            Devices.Add("Стиральная машина");
-            Devices.Add("Посудомоечная машина");
-            Devices.Add("Мультиварка");
-            Devices.Add("Водонагреватель");
-            Devices.Add("Плита");
-            Devices.Add("Микроволновая печь");
-            Devices.Add("Духовой шкаф");
-            Devices.Add("Холодильник");
-            Devices.Add("Увлажнитель воздуха");
-            Devices.Add("Телевизор");
-            Devices.Add("Пылесос");
-            Devices.Add("музыкальный центр");
-            Devices.Add("Компьютер");
-            Devices.Add("Игровая консоль");
+            // Заполняем список устройств
+            Devices.Add(new HomeDevice("Чайник", description: "LG, объем 2л."));
+            Devices.Add(new HomeDevice("Стиральная машина", description: "BOSCH"));
+            Devices.Add(new HomeDevice("Посудомоечная машина", description: "Gorenje"));
+            Devices.Add(new HomeDevice("Мультиварка", description: "Philips"));
 
             BindingContext = this;
         }
@@ -40,7 +31,10 @@ namespace XMR.HomeApp.Pages
         /// </summary>
         private void deviceList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            DisplayAlert("Нажатие", $"Вы нажали на элемент {e.Item}", "OK"); ; ;
+            // распаковка модели из объекта
+            var tappedDevice = (HomeDevice)e.Item;
+            // уведомление
+            DisplayAlert("Нажатие", $"Вы нажали на элемент {tappedDevice.Name}", "OK");
         }
 
         /// <summary>
@@ -48,7 +42,10 @@ namespace XMR.HomeApp.Pages
         /// </summary>
         private void deviceList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            DisplayAlert("Выбор", $"Вы выбрали {e.SelectedItem}", "OK"); ; ;
+            // распаковка модели из объекта
+            var selectedDevice = (HomeDevice)e.SelectedItem;
+            // уведомление
+            DisplayAlert("Выбор", $"Вы выбрали {selectedDevice.Name},{selectedDevice.Description}", "OK");
         }
     }
 }
