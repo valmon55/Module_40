@@ -19,10 +19,10 @@ namespace XMR.HomeApp.Pages
 			InitializeComponent ();
 
             // Заполняем список устройств
-            Devices.Add(new HomeDevice("Чайник", description: "LG, объем 2л."));
-            Devices.Add(new HomeDevice("Стиральная машина", description: "BOSCH"));
-            Devices.Add(new HomeDevice("Посудомоечная машина", description: "Gorenje"));
-            Devices.Add(new HomeDevice("Мультиварка", description: "Philips"));
+            Devices.Add(new HomeDevice("Чайник", description: "LG, объем 2л.", image: "Chainik.png"));
+            Devices.Add(new HomeDevice("Стиральная машина", description: "BOSCH", image: "StiralnayaMashina.png"));
+            Devices.Add(new HomeDevice("Посудомоечная машина", description: "Gorenje", image: "PosudomoechnayaMashina.png"));
+            Devices.Add(new HomeDevice("Мультиварка", description: "Philips", image: "Multivarka.png"));
 
             BindingContext = this;
         }
