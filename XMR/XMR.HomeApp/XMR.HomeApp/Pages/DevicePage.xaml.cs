@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -11,119 +10,98 @@ using XMR.HomeApp.Models;
 
 namespace XMR.HomeApp.Pages
 {
-    //[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DevicePage : ContentPage
     {
-        public static string PageName { get; set; }
-        public static string DeviceName { get; set; }
-        public static string DeviceDescription { get; set; }
-        public HomeDevice HomeDevice { get; set; }
-        public DevicePage(string pageName, HomeDevice homeDevice = null)
+        public DevicePage()
         {
-            PageName = pageName;
-
-            if (homeDevice != null)
-            {
-                HomeDevice = homeDevice;
-                DeviceName = homeDevice.Name;
-                DeviceDescription = homeDevice.Description;
-            }
-            else
-            {
-                HomeDevice = new HomeDevice();
-            }
-
             InitializeComponent();
-            OpenEditor();
+            GetDevices();
         }
-        public void OpenEditor()
+
+        /// <summary>
+        /// Метод для выгрузки устройств
+        /// </summary>
+        public void GetDevices()
         {
-            // Создание однострочного текстового поля для названия
-            var newDeviceName = new Entry
+            // Создадим некий список устройств.
+            // В реальном приложении они могут доставаться из базы или веб-сервиса.
+            var homeDevices = new List<HomeDevice>();
+
+            // Заполняем список устройств
+            homeDevices.Add(new HomeDevice("Чайник", "kettle.jpg"));
+            homeDevices.Add(new HomeDevice("Стиральная машина"));
+            homeDevices.Add(new HomeDevice("Посудомоечная машина"));
+            homeDevices.Add(new HomeDevice("Мультиварка"));
+            homeDevices.Add(new HomeDevice("Водонагреватель"));
+            homeDevices.Add(new HomeDevice("Плита"));
+            homeDevices.Add(new HomeDevice("Микроволновая печь"));
+            homeDevices.Add(new HomeDevice("Духовой шкаф"));
+            homeDevices.Add(new HomeDevice("Холодильник"));
+            homeDevices.Add(new HomeDevice("Увлажнитель воздуха"));
+            homeDevices.Add(new HomeDevice("Телевизор"));
+            homeDevices.Add(new HomeDevice("Пылесос"));
+            homeDevices.Add(new HomeDevice("музыкальный центр"));
+            homeDevices.Add(new HomeDevice("Компьютер"));
+            homeDevices.Add(new HomeDevice("Игровая консоль"));
+            // Создадим новый стек
+            var innerStack = new StackLayout();
+
+            foreach (var homeDevice in homeDevices)
             {
-                BackgroundColor = Color.AliceBlue,
-                Margin = new Thickness(30, 10),
-                Placeholder = "Название",
-                Text = DeviceName,
-                Style = (Style)App.Current.Resources["ValidInputStyle"],
-            };
-            newDeviceName.TextChanged += (sender, e) => InputTextChanged(sender, e, newDeviceName);
-            stackLayout.Children.Add(newDeviceName);
+                var deviceLabel = new Label() { Text = homeDevice.Name, FontSize = 17 };
 
-            // Создание многострочного поля для описания
-            var newDeviceDescription = new Editor
-            {
-                HeightRequest = 200,
-                BackgroundColor = Color.AliceBlue,
-                Margin = new Thickness(30, 10),
-                Placeholder = "Описание",
-                Text = DeviceDescription,
-                Style = (Style)App.Current.Resources["ValidInputStyle"]
-            };
-            newDeviceDescription.TextChanged += (sender, e) => InputTextChanged(sender, e, newDeviceDescription);
-            stackLayout.Children.Add(newDeviceDescription);
+                var frame = new Frame()
+                {
+                    BorderColor = Color.Gray,
+                    BackgroundColor = Color.FromHex("#e1e1e1"),
+                    CornerRadius = 4,
+                    Margin = new Thickness(10, 1),
+                };
 
-            // Создаем заголовок для переключателя
-            var switchHeader = new Label { Text = "Не использует газ", HorizontalOptions = LayoutOptions.Center, Margin = new Thickness(0, 5, 0, 0) };
-            stackLayout.Children.Add(switchHeader);
+                frame.Content = deviceLabel;
 
-            // Создаем переключатель
-            Switch switchControl = new Switch
-            {
-                IsToggled = false,
-                HorizontalOptions = LayoutOptions.Center,
-                ThumbColor = Color.DodgerBlue,
-                OnColor = Color.LightSteelBlue,
-            };
-            stackLayout.Children.Add(switchControl);
+                // Создаем объект, отвечающий за распознавание нажатий
+                var gesture = new TapGestureRecognizer();
+                // Устанавливаем по событию нажатия вызов метода  ShowImage(...) со ссылкой на изображение в качестве аргумента
+                gesture.Tapped += async (sender, e) => await ShowImage(sender, e, homeDevice.Image);
+                // Добавляем настроенный распознаватель нажатий в текущий фрейм
+                frame.GestureRecognizers.Add(gesture);
 
-            // Регистрируем обработчик события переключения
-            switchControl.Toggled += (sender, e) => SwitchHandler(sender, e, switchHeader);
+                // Добавляем фрейм в стек для его отображения в едином списке по порядку
+                innerStack.Children.Add(frame);
+            }
 
-            // Кнопка сохранения с обработчиками
-            var addButton = new Button
-            {
-                Text = "Сохранить",
-                Margin = new Thickness(30, 10),
-                BackgroundColor = Color.Silver,
-            };
-            addButton.Clicked += (sender, eventArgs) => SaveButtonClicked(sender, eventArgs, new View[] { newDeviceName, newDeviceDescription, switchControl });
-
-            stackLayout.Children.Add(addButton);
+            // Сохраним стек внутрь уже имеющегося в xaml-файле блока прокручиваемой разметки
+            scrollView.Content = innerStack;
         }
         /// <summary>
-        /// Кнопка сохранения деактивирует все контролы
+        /// Показ изображения по нажатию
         /// </summary>
-        private void SaveButtonClicked(object sender, EventArgs e, View[] views)
+        public async Task ShowImage(object sender, EventArgs e, string imageName)
         {
-            foreach (var view in views)
-                view.IsEnabled = false;
-
-            HomeDevice.Name = DeviceName;
-            HomeDevice.Description = DeviceDescription;
-        }
-        /// <summary>
-        /// Обработка переключателя
-        /// </summary>
-        public void SwitchHandler(object sender, ToggledEventArgs e, Label header)
-        {
-            if (!e.Value)
+            // Если изображение отсутствует - показываем информационное окно
+            if (String.IsNullOrEmpty(imageName))
             {
-                header.Text = "Не использует газ";
+                //await DisplayAlert("", "Изображение устройства отсутствует", "OK");
+
+                // Создаем новый объект изображения
+                Image img = new Image();
+                // Подключаем удаленный ресурс в качестве источника изображения
+                img.Source = new UriImageSource
+                {
+                    CachingEnabled = false,
+                    Uri = new Uri("https://i.stack.imgur.com/y9DpT.jpg")
+                };
+                // Инициализируем страницу
+                Content = img;
                 return;
             }
-            header.Text = "Использует газ";
-        }
-        private void InputTextChanged(object sender, TextChangedEventArgs e, InputView view)
-        {
-            if (view is Entry)
-            {
-                DeviceName = view.Text;
-            }
-            else
-            {
-                DeviceDescription = view.Text;
-            }
+
+            // При наличии изображения - загружаем его по заданному пути
+            Image image = new Image();
+            image.Source = ImageSource.FromResource($"XMR.HomeApp.Images.{imageName}");
+            Content = image;
         }
     }
 }

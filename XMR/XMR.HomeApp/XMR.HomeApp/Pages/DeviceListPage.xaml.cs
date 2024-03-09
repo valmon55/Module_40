@@ -15,10 +15,6 @@ namespace XMR.HomeApp.Pages
 	public partial class DeviceListPage : ContentPage
 	{
         /// <summary>
-        /// Ссылка на выбранный объект
-        /// </summary>
-        HomeDevice SelectedDevice;
-        /// <summary>
         /// Группируемая коллекция
         /// </summary>
         public ObservableCollection<Group<string, HomeDevice>> DeviceGroups { get; set; } 
@@ -58,7 +54,9 @@ namespace XMR.HomeApp.Pages
         private void deviceList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             // распаковка модели из объекта
-            SelectedDevice = (HomeDevice)e.SelectedItem;
+            var selectedDevice = (HomeDevice)e.SelectedItem;
+            // уведомление
+            DisplayAlert("Выбор", $"Вы выбрали {selectedDevice.Name},{selectedDevice.Description}", "OK");
         }
         /// <summary>
         /// Обработчик добавления нового устройства
@@ -101,21 +99,11 @@ namespace XMR.HomeApp.Pages
             // Возврат на первую страницу стека навигации (корневую страницу приложения) - экран логина
             await Navigation.PopAsync();
         }
-        private async void EditDeviceButton_Clicked(object sender, EventArgs e)
-        {
-            // проверяем, выбрал ли пользователь устройство из списка
-            if (SelectedDevice == null)
-            {
-                await DisplayAlert(null, $"Пожалуйста, выберите устройство!", "OK");
-                return;
-            }
-            // Переход на следующую страницу - страницу нового устройства (и помещение её в стек навигации)
-            await Navigation.PushAsync(new DevicePage("Изменить устройство", SelectedDevice));
-        }
+
         private async void NewDeviceButton_Clicked(object sender, EventArgs e)
         {
             // Переход на следующую страницу - страницу нового устройства (и помещение её в стек навигации)
-            await Navigation.PushAsync(new DevicePage());
+            await Navigation.PushAsync(new NewDevicePage());
         }
     }
 }
