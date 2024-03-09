@@ -25,8 +25,8 @@
                 </ListView.ItemTemplate>
             </ListView>
             <StackLayout Orientation="Horizontal" Padding="30,10,30,15" HorizontalOptions="StartAndExpand" >
-                <Button Clicked="AddDevice"  Text="Новое устройство" />
-                <Button Clicked="RemoveDevice" Text="Удалить устройство" />
+                <!--<Button Clicked="AddDevice"  Text="Новое устройство" />-->
+                <!--<Button Clicked="RemoveDevice" Text="Удалить устройство" />-->
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
