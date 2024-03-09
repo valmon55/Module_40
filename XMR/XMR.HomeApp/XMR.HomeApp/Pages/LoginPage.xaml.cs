@@ -35,46 +35,12 @@ namespace XMR.HomeApp.Pages
         /// <summary>
         /// По клику обрабатываем счётчик и выводим разные сообщения
         /// </summary>
-        private void login_Click(object sender, EventArgs e)
+        private async void login_Click(object sender, EventArgs e)
         {
-            if (loginCounter == 0)
-            {
-                // Если первая попытка - просто меняем сообщения
-                loginButton.Text = $"Выполняется вход..";
-            }
-            else if (loginCounter > 5) // Слишком много попыток - показываем ошибку
-            {
-                // Деактивируем кнопку
-                loginButton.IsEnabled = false;
-                // Показываем текстовое сообщение об ошибке
-                //var infoMessage = (Label)stackLayout.Children.Last();
-        
-                // Обновляем динамический ресурс по необходимости
-                Resources["errorColor"] = Color.FromHex("#e70d4f");
-                infoMessage.Text = "Слишком много попыток! Попробуйте позже.";
-                
-                // Используем добавленный глобальный ресурс
-                //infoMessage.TextColor = (Color)Application.Current.Resources["errorColor"];
-
-                //// Новый цвет для информационных сообщений
-                //var warningColor = Color.FromHex("#ffa500");
-                //// Добавлем в словарь.
-                //Resources.Add("warningColor", warningColor);
-
-                //// Используем добавленный ресурс
-                //infoMessage.TextColor = (Color)Resources["warningColor"];
-            }
-            else
-            {
-                // Обновляем динамический ресурс по необходимости
-                Resources["errorColor"] = Color.FromHex("#ff8e00");
-
-                loginButton.Text = $"Выполняется вход...";
-                infoMessage.Text = $" Попыток входа: { loginCounter}";
-            }
-
-            // Увеличиваем счетчик
-            loginCounter += 1;
+            loginButton.Text = $"Выполняется вход..";
+            await Task.Delay(150);
+            await Navigation.PushAsync(new DeviceListPage());
+            loginButton.Text = BUTTON_TEXT;
         }
     }
 }

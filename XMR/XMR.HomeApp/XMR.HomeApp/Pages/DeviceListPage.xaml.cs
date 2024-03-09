@@ -94,5 +94,16 @@ namespace XMR.HomeApp.Pages
         //        await DisplayAlert(null, $"Устройство '{deviceToRemove.Name}' удалено", "ОК");
         //    }
         //}
+        private async void LogoutButton_Clicked(object sender, EventArgs e)
+        {
+            // Возврат на первую страницу стека навигации (корневую страницу приложения) - экран логина
+            await Navigation.PopAsync();
+        }
+
+        private async void NewDeviceButton_Clicked(object sender, EventArgs e)
+        {
+            // Переход на следующую страницу - страницу нового устройства (и помещение её в стек навигации)
+            await Navigation.PushAsync(new NewDevicePage());
+        }
     }
 }
