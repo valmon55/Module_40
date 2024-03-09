@@ -11,10 +11,11 @@
              ItemSelected="deviceList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell
+                        <ImageCell
+                            ImageSource="{Binding Image}"
                             Text="{Binding Name}"
                             Detail="{Binding Description}"
-                            TextColor="Black"
+                            TextColor="DodgerBlue"
                             DetailColor="Gray"
                             />
                     </DataTemplate>
