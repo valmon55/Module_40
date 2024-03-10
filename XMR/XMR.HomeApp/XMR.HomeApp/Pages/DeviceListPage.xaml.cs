@@ -103,7 +103,7 @@ namespace XMR.HomeApp.Pages
         private async void NewDeviceButton_Clicked(object sender, EventArgs e)
         {
             // Переход на следующую страницу - страницу нового устройства (и помещение её в стек навигации)
-            await Navigation.PushAsync(new NewDevicePage());
+            await Navigation.PushAsync(new DevicePage());
         }
     }
 }
