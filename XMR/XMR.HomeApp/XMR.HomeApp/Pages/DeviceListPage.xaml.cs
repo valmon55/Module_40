@@ -109,11 +109,13 @@ namespace XMR.HomeApp.Pages
                 await DisplayAlert(null, $"Пожалуйста, выберите устройство!", "OK");
                 return;
             }
+            // Переход на следующую страницу - страницу нового устройства (и помещение её в стек навигации)
+            await Navigation.PushAsync(new DevicePage("Изменить устройство", SelectedDevice));
         }
         private async void NewDeviceButton_Clicked(object sender, EventArgs e)
         {
             // Переход на следующую страницу - страницу нового устройства (и помещение её в стек навигации)
-            await Navigation.PushAsync(new DevicePage());
+            await Navigation.PushAsync(new DevicePage("Новое устройство"));
         }
     }
 }

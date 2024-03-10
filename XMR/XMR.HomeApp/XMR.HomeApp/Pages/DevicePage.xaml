@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XMR.HomeApp.Pages"
              x:Class="XMR.HomeApp.Pages.DevicePage"
-             Title="Новое устройство">
+             Title="{x:Static local:DevicePage.PageName}">
     <ContentPage.Content>
         <StackLayout x:Name="stackLayout" BackgroundColor="LightGray" >
         </StackLayout>
