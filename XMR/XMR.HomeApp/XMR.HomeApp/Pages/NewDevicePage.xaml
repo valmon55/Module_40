@@ -6,7 +6,6 @@
              Title="Новое устройство">
     <ContentPage.Content>
         <StackLayout x:Name="stackLayout" BackgroundColor="LightGray" >
-            <Label Text="HomeApp - Новое устройство" HorizontalOptions="Center"  FontSize="Title" Padding="30,10,30,10" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
