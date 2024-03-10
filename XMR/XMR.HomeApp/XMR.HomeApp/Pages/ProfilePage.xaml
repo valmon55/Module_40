@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XMR.HomeApp.Pages.ProfilePage">
+             xmlns:local="clr-namespace:XMR.HomeApp.Pages"
+             x:Class="XMR.HomeApp.Pages.ProfilePage"
+             Title="Ваш профиль"
+             >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="HomeApp - доступ" HorizontalOptions="Center"  FontSize="Title" Padding="30,10,30,10" />
-            <TableView>
+            <TableView x:Name="userDataTable">
                 <TableView.Root>
                     <TableRoot>
                         <TableSection Title="Данные пользователя">
-                            <EntryCell x:Name="loginEntry" Label="Имя" Keyboard="Default"  Text="Андрей" />
-                            <EntryCell x:Name="emailEntry" Label="E-mail" Keyboard="Default"  Text="andrew@homeapp.com" />
+                            <EntryCell x:Name="loginEntry" Label="Имя" Keyboard="Default" />
+                            <EntryCell x:Name="emailEntry" Label="E-mail" Keyboard="Default" />
                         </TableSection>
                         <TableSection Title="Настройки доступа">
                             <SwitchCell x:Name="gasSwitch" Text="Управление газом" 
@@ -23,7 +25,7 @@
                     </TableRoot>
                 </TableView.Root>
             </TableView>
-            <Button x:Name="saveButton" Text="Сохранить" Margin="10,10,10,10" />
+            <Button x:Name="saveButton" Clicked="saveButton_Clicked" Text="Сохранить" Margin="10,10,10,10" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
