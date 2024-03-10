@@ -29,10 +29,14 @@ namespace XMR.HomeApp.Pages
 
             // Первоначальные данные сохраним в обычном листе
             var initialList = new List<HomeDevice>();
-            initialList.Add(new HomeDevice("Чайник", "Chainik.png", "LG, объем 2л.", "Кухня"));
-            initialList.Add(new HomeDevice("Стиральная машина", "StiralnayaMashina.png", description: "BOSCH", "Ванная"));
-            initialList.Add(new HomeDevice("Посудомоечная машина", "PosudomoechnayaMashina.png", "Gorenje", "Кухня"));
-            initialList.Add(new HomeDevice("Мультиварка", "Multivarka.png", "Philips", "Кухня"));
+            initialList.Add(new HomeDevice("Чайник", "Chainik.png", "LG, объем 2л.", "Кухня") 
+                { Id = new Guid("735a3848-dad1-40f6-8fb7-36d2da16f1f3") });
+            initialList.Add(new HomeDevice("Стиральная машина", "StiralnayaMashina.png", description: "BOSCH", "Ванная") 
+                { Id = new Guid("cca22a07-5593-4485-b21d-ed7aba4ac815") });
+            initialList.Add(new HomeDevice("Посудомоечная машина", "PosudomoechnayaMashina.png", "Gorenje", "Кухня")
+                { Id = new Guid("eba7c7eb-941b-4b1d-a179-21fa87a783ac") });
+            initialList.Add(new HomeDevice("Мультиварка", "Multivarka.png", "Philips", "Кухня")
+                { Id = new Guid("7e19330d-23f2-4fe7-b8b7-14d3c8163e73") });
 
             // Сгруппируем по комнатам
             var devicesByRooms = initialList.GroupBy(d => d.Room).Select(g => new Group<string, HomeDevice>(g.Key, g));

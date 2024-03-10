@@ -80,6 +80,14 @@ namespace XMR.HomeApp.Pages
             // Регистрируем обработчик события переключения
             switchControl.Toggled += (sender, e) => SwitchHandler(sender, e, switchHeader);
 
+            // Кнопка вызова страницы для вывода инструкции
+            var userManualButton = new Button
+            {
+                Text = "Инструкция по эксплуатации",
+                Margin = new Thickness(30, 10),
+                BackgroundColor = Color.Silver,
+            };
+            userManualButton.Clicked += (sender, eventArgs) => ManualButtonClicked(sender, eventArgs);
             // Кнопка сохранения с обработчиками
             var addButton = new Button
             {
@@ -89,7 +97,12 @@ namespace XMR.HomeApp.Pages
             };
             addButton.Clicked += (sender, eventArgs) => SaveButtonClicked(sender, eventArgs, new View[] { newDeviceName, newDeviceDescription, switchControl });
 
+            stackLayout.Children.Add(userManualButton);
             stackLayout.Children.Add(addButton);
+        }
+        private async void ManualButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new DeviceManualPage(HomeDevice.Name, HomeDevice.Id));
         }
         /// <summary>
         /// Кнопка сохранения деактивирует все контролы
