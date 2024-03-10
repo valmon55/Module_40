@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 using XMR.HomeApp.Models;
 
 namespace XMR.HomeApp.Pages
@@ -39,6 +40,12 @@ namespace XMR.HomeApp.Pages
                 UserInfo = new UserInfo();
                 App.Current.Properties.Add("CurrentUser", UserInfo);
             }
+            // Получим значения ползунков из Preferences.
+            // Если значений нет - установим значения по умолчанию (false)
+            gasSwitch.On = Preferences.Get("gasState", false);
+            climateSwitch.On = Preferences.Get("climateState", false);
+            electroSwitch.On = Preferences.Get("electroState", false);
+
             base.OnAppearing();
         }
         /// <summary>
@@ -48,7 +55,10 @@ namespace XMR.HomeApp.Pages
         {
             UserInfo.Name = loginEntry.Text;
             UserInfo.Email = emailEntry.Text;
-
+            // Сохраним значения ползунков в настройки.
+            Preferences.Set("gasState", gasSwitch.On);
+            Preferences.Set("climateState", climateSwitch.On);
+            Preferences.Set("electroState", electroSwitch.On);
             await Navigation.PopAsync();
         }
         /// <summary>
