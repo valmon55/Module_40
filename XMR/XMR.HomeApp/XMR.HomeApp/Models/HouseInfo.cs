@@ -14,6 +14,6 @@ namespace XMR.HomeApp.Models
         public bool GasConnected { get; set; }
         public int Area { get; set; }
         public string Material { get; set; }
-        public Address Address { get; set; }
+        public Address AddressInfo { get; set; }
     }
 }
