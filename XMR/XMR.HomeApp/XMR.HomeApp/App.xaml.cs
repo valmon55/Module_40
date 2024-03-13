@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XMR.HomeApp.Clients;
 using XMR.HomeApp.Data.Tables;
 using XMR.HomeApp.Pages;
 
@@ -17,6 +18,10 @@ namespace XMR.HomeApp
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 $"homedevices.db")
             );
+        /// <summary>
+        /// Инициализация Api-клиента для использования во всех частях приложения
+        /// </summary>
+        public static HomeApiClient ApiClient = new HomeApiClient("http://10.0.2.2:5000");
         public static IMapper Mapper { get; set; }
         public App()
         {
@@ -35,6 +40,9 @@ namespace XMR.HomeApp
             {
                 cfg.CreateMap<Data.Tables.HomeDevice, Models.HomeDevice>();
                 cfg.CreateMap<Models.HomeDevice, Data.Tables.HomeDevice>();
+                // Маппинг внешнего контракта API во внутреннюю модель
+                cfg.CreateMap<HomeApi.Contracts.Models.Home.InfoResponse, Models.HouseInfo>();
+                cfg.CreateMap<HomeApi.Contracts.Models.Home.AddressInfo, Models.Address>();
             });
 
             return config.CreateMapper();
