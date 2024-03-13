@@ -5,6 +5,8 @@ using System.Text;
 
 namespace XMR.HomeApp.Models
 {
+    //TODO: Не подгружается информация из-за ошибки 
+    //  на веб-сервисе.см. Модуль 34
     public class HouseInfo
     {
         public int FloorAmount { get; set; }
