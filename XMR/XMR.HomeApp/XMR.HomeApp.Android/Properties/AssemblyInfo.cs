@@ -29,4 +29,4 @@ using Android.App;
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 [assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
 // Установим разрешения на доступ к сети
-[assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)]
+[assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)] 
