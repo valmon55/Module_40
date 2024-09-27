@@ -1,4 +1,4 @@
-﻿using HomeApi.Contracts.Models.Home;
+﻿using HomeApi.Contracts_net_standart2.Models.Home;
 using System;
 using System.Collections.Generic;
 using System.Text;
