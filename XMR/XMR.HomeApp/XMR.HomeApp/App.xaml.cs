@@ -21,7 +21,7 @@ namespace XMR.HomeApp
         /// <summary>
         /// Инициализация Api-клиента для использования во всех частях приложения
         /// </summary>
-        //public static HomeApiClient ApiClient = new HomeApiClient("http://10.0.2.2:5000");
+        public static HomeApiClient ApiClient = new HomeApiClient("http://10.0.2.2:5000");
         public static IMapper Mapper { get; set; }
         public App()
         {
