@@ -10,17 +10,17 @@
             <TableView x:Name="userDataTable">
                 <TableView.Root>
                     <TableRoot>
-                        <TableSection Title="Данные пользователя">
-                            <EntryCell x:Name="loginEntry" Label="Имя" Keyboard="Default" />
-                            <EntryCell x:Name="emailEntry" Label="E-mail" Keyboard="Default" />
+                        <TableSection Title="Информация об объекте" x:Name="serverLoadedInfo">
+                            <EntryCell x:Name="addressEntry" Label="Адрес" Keyboard="Default" />
+                            <EntryCell x:Name="telephoneEntry" Label="Телефон" Keyboard="Default" />
+                            <EntryCell x:Name="areaEntry" Label="Площадь" Keyboard="Default" />
+                            <EntryCell x:Name="voltageEntry" Label="Напряжение сети" Keyboard="Default" />
+                            <EntryCell x:Name="heatingEntry" Label="Тип отопления" Keyboard="Default" />
                         </TableSection>
                         <TableSection Title="Настройки доступа">
-                            <SwitchCell x:Name="gasSwitch" Text="Управление газом" 
-                                        OnChanged="NotifyUser" OnColor="RoyalBlue" />
-                            <SwitchCell x:Name="climateSwitch" Text="Управление климатом" 
-                                        OnChanged="NotifyUser" OnColor="RoyalBlue"  />
-                            <SwitchCell x:Name="electroSwitch" Text="Электропитание" 
-                                        OnChanged="NotifyUser" OnColor="RoyalBlue"  />
+                            <SwitchCell x:Name="gasSwitch" Text="Управление газом"  OnColor="RoyalBlue" />
+                            <SwitchCell x:Name="climateSwitch" Text="Управление климатом" OnColor="RoyalBlue"  />
+                            <SwitchCell x:Name="electroSwitch" Text="Электропитание"  OnColor="RoyalBlue"  />
                         </TableSection>
                     </TableRoot>
                 </TableView.Root>

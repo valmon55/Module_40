@@ -41,8 +41,8 @@ namespace XMR.HomeApp
                 cfg.CreateMap<Data.Tables.HomeDevice, Models.HomeDevice>();
                 cfg.CreateMap<Models.HomeDevice, Data.Tables.HomeDevice>();
                 // Маппинг внешнего контракта API во внутреннюю модель
-                //cfg.CreateMap<HomeApi.Contracts.Models.Home.InfoResponse, Models.HouseInfo>();
-                //cfg.CreateMap<HomeApi.Contracts.Models.Home.AddressInfo, Models.Address>();
+                cfg.CreateMap<HomeApi.Contracts_net_standart2.Models.Home.InfoResponse, Models.HouseInfo>();
+                cfg.CreateMap<HomeApi.Contracts_net_standart2.Models.Home.AddressInfo, Models.Address>();
             });
 
             return config.CreateMapper();

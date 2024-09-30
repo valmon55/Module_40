@@ -14,32 +14,23 @@ namespace XMR.HomeApp.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
-        /// <summary>
-        /// Модель пользовательских данных
-        /// </summary>
-        public UserInfo UserInfo { get; set; }
         public ProfilePage()
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// Вызывается до того, как элемент становится видимым
         /// </summary>
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
-            // Проверяем, есть ли в словаре значение
-            if (App.Current.Properties.TryGetValue("CurrentUser", out object user))
+            // Проверяем доступность сетевого соединения
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                UserInfo = user as UserInfo;
-                loginEntry.Text = UserInfo.Name;
-                emailEntry.Text = UserInfo.Email;
+                // При наличии - запрашиваем данные с сервера
+                await GetHouseInfo();
             }
-            else
-            {
-                // Добавляем, если нет
-                UserInfo = new UserInfo();
-                App.Current.Properties.Add("CurrentUser", UserInfo);
-            }
+
             // Получим значения ползунков из Preferences.
             // Если значений нет - установим значения по умолчанию (false)
             gasSwitch.On = Preferences.Get("gasState", false);
@@ -48,26 +39,37 @@ namespace XMR.HomeApp.Pages
 
             base.OnAppearing();
         }
+
         /// <summary>
         ///  Сохраним информацию о пользователе
         /// </summary>
         private async void saveButton_Clicked(object sender, System.EventArgs e)
         {
-            UserInfo.Name = loginEntry.Text;
-            UserInfo.Email = emailEntry.Text;
             // Сохраним значения ползунков в настройки.
             Preferences.Set("gasState", gasSwitch.On);
             Preferences.Set("climateState", climateSwitch.On);
             Preferences.Set("electroState", electroSwitch.On);
+
+            // Возврат на предыдущую страницу
             await Navigation.PopAsync();
         }
+
         /// <summary>
-        /// Покажем уведомление с предупреждением, если пользователю выдаются сразу все доступы.
+        /// Загружает информацию о строении
         /// </summary>
-        private void NotifyUser(object sender, ToggledEventArgs e)
+        private async Task GetHouseInfo()
         {
-            if (gasSwitch.On && climateSwitch.On && electroSwitch.On)
-                DisplayAlert("Внимание!", "Пользователь получит полный доступ ко всем системам", "OK");
+            // Получим информацию с помощью клиента
+            var inforResponse = await App.ApiClient.GetInfo();
+            // Маппинг внешней модели данных во внутреннюю   
+            var houseInfo = App.Mapper.Map<HouseInfo>(inforResponse);
+
+            // Проставляем нужные значения, полученные с сервера
+            addressEntry.Text = $" {houseInfo.Address.Street} {houseInfo.Address.House}/{houseInfo.Address.Building}";
+            telephoneEntry.Text = $" {houseInfo.Telephone}";
+            areaEntry.Text = $" {houseInfo.Area} кв. м.";
+            voltageEntry.Text = $" {houseInfo.CurrentVolts} в";
+            heatingEntry.Text = $" {houseInfo.Heating}";
         }
     }
 }
