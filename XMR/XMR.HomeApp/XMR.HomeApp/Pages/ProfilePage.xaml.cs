@@ -63,6 +63,7 @@ namespace XMR.HomeApp.Pages
             var inforResponse = await App.ApiClient.GetInfo();
             // Маппинг внешней модели данных во внутреннюю   
             var houseInfo = App.Mapper.Map<HouseInfo>(inforResponse);
+            houseInfo.Address = App.Mapper.Map<Address>(inforResponse.AddressInfo);
 
             // Проставляем нужные значения, полученные с сервера
             addressEntry.Text = $" {houseInfo.Address.Street} {houseInfo.Address.House}/{houseInfo.Address.Building}";

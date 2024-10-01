@@ -21,7 +21,7 @@ namespace XMR.HomeApp
         /// <summary>
         /// Инициализация Api-клиента для использования во всех частях приложения
         /// </summary>
-        public static HomeApiClient ApiClient = new HomeApiClient("http://10.0.2.2:5000");
+        public static HomeApiClient ApiClient = new HomeApiClient("http://10.0.2.2:5001");
         public static IMapper Mapper { get; set; }
         public App()
         {
@@ -41,8 +41,8 @@ namespace XMR.HomeApp
                 cfg.CreateMap<Data.Tables.HomeDevice, Models.HomeDevice>();
                 cfg.CreateMap<Models.HomeDevice, Data.Tables.HomeDevice>();
                 // Маппинг внешнего контракта API во внутреннюю модель
-                cfg.CreateMap<HomeApi.Contracts_net_standart2.Models.Home.InfoResponse, Models.HouseInfo>();
                 cfg.CreateMap<HomeApi.Contracts_net_standart2.Models.Home.AddressInfo, Models.Address>();
+                cfg.CreateMap<HomeApi.Contracts_net_standart2.Models.Home.InfoResponse, Models.HouseInfo>();
             });
 
             return config.CreateMapper();
